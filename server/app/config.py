@@ -9,13 +9,9 @@ class Settings(BaseSettings):
     database_password: str
     database_name: str
     database_username: str
-    wkhtmltopdf_path: str
-
     access_token_expire_minutes: str
     secret_key: str
     algorithm: str
-
-    wkhtmltopdf_path: str
 
     class Config:
         env_file = ".env"

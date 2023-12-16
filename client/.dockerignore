@@ -1,0 +1,7 @@
+.env.local
+/node-modules
+/build
+README.md
+deploy.sh
+deploy-local.sh
+.gitignore

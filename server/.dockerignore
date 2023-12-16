@@ -1,0 +1,5 @@
+.env
+fernet_key.fernet_key
+windows_requirements.txt
+.gitignore
+nginx.service
