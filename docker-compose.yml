@@ -2,20 +2,16 @@ version: '3.8'
 
 services:
   server:
-    build:
-      dockerfile: Dockerfile
-      context: ./server
-      platforms:
-        - linux/amd64
-        - linux/arm64
+    image: oniondosa/emr-server:buildx-latest
+    restart: always
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     ports:
-      - "8000"
+      - "8000:8000"
     environment:
-      - DATABASE_HOSTNAME=postgres
+      - DATABASE_HOSTNAME=db
       - DATABASE_PORT=5432
       - DATABASE_PASSWORD=/run/secrets/db-password
-      - DATABASE_NAME=postgres
+      - DATABASE_NAME=emr
       - DATABASE_USERNAME=postgres
       - ALGORITHM=HS256
       - SECRET_KEY=87b113dede1fdbe718c21ae6055a023d64b3e926f74e329523087b15736c0027
@@ -24,44 +20,36 @@ services:
       - db-password
     networks:
       - private
+      - public
     depends_on:
       - db
   db:
     image: postgres:16.1-alpine3.19
+    restart: always
     secrets:
       - db-password
     platform: linux/arm64
     environment:
-      # - POSTGRES_PASSWORD=/run/secrets/db-password
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=/run/secrets/db-password
+      - POSTGRES_DB=emr
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
       - private
   client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-      platforms:
-        - linux/amd64
-        - linux/arm64
+    image: oniondosa/emr-client:buildx-latest
     command: npm run start
     ports: 
       - "3000"
     networks:
       - private
+      - public
     environment:
       - REACT_APP_PROTOCOL=http
       - REACT_APP_HOSTNAME=localhost
       - REACT_APP_PORT=:8000/api
   nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-      platforms:
-        - linux/amd64
-        - linux/arm64
+    image: oniondosa/emr-nginx:buildx-latest
     ports:
       - "80:80"
     networks:

@@ -20,7 +20,7 @@ const Query = () => {
   }
   const getRecord = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_PROTOCOL}://${process.env.HOSTNAME}${process.env.PORT}/records/${stateId}`,
+      `${process.env.REACT_APP_API}/records/${stateId}`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

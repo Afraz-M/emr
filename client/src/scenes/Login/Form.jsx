@@ -101,7 +101,7 @@ const Form = () => {
 
   const register = async (values, onSubmitProps) => {
     console.log(
-      `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_HOSTNAME}${process.env.REACT_APP_PORT}/auth/register`
+      `${process.env.REACT_APP_API}/auth/register`
     );
     const formData = new FormData();
     for (let value in values) {
@@ -114,7 +114,7 @@ const Form = () => {
       console.log(value[0] + "," + value[1]);
     }
     const savedUserResponse = await fetch(
-      `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_HOSTNAME}${process.env.REACT_APP_PORT}/auth/register`,
+      `${process.env.REACT_APP_API}/auth/register`,
       {
         method: "POST",
         body: formData,
@@ -131,7 +131,7 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch(
-      `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_HOSTNAME}${process.env.REACT_APP_PORT}/auth/login`,
+      `${process.env.REACT_APP_API}/auth/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

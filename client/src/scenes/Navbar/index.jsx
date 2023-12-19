@@ -66,12 +66,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
   const dark = palette.primary.main;
-  const host = process.env.REACT_APP_HOSTNAME;
-  const port = process.env.REACT_APP_PORT;
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     const response = await fetch(
-      `${process.env.REACT_APP_PROTOCOL}://${host}${port}/query/${values.category}/${values.query}`,
+      `${process.env.REACT_APP_API}/query/${values.category}/${values.query}`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

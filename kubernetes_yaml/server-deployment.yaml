@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+spec:
+  selector:
+    app: server
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          image: oniondosa/emr-server:buildx-latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_HOSTNAME
+              value: "postgres"
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_PASSWORD
+              value: postgres
+            - name: DATABASE_NAME
+              value: emr
+            - name: DATABASE_USERNAME
+              value: postgres
+            - name: ALGORITHM
+              value: HS256
+            - name: SECRET_KEY
+              value: 87b113dede1fdbe718c21ae6055a023d64b3e926f74e329523087b15736c0027
+            - name: ACCESS_TOKEN_EXPIRE_MINUTES
+              value: "240"       
+          imagePullPolicy: Always

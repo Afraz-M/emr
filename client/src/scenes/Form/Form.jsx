@@ -396,7 +396,7 @@ const Form = () => {
       console.log( pair[0] + ' - ' + pair[1] );
     }
     const savedRecordResponse = await fetch(
-      `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_HOSTNAME}${process.env.REACT_APP_PORT}/records`,
+      `${process.env.REACT_APP_API}/records`,
       {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },

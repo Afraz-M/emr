@@ -14,7 +14,7 @@ const HomePage = () => {
 
   const recentRecords = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_HOSTNAME}${process.env.REACT_APP_PORT}/records`,
+      `${process.env.REACT_APP_API}/records`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
