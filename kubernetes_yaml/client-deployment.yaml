@@ -31,10 +31,5 @@ spec:
             - containerPort: 3000
           env:
             - name: REACT_APP_PROTOCOL
-              value: http
-            - name: REACT_APP_HOSTNAME
-              value: localhost
-            - name: REACT_APP_PORT
-              value: :8000/api
-          
+              value: http://localhost:8000/api      
           imagePullPolicy: Always
